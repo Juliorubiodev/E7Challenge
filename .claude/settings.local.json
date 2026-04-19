@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"gaming tournament anime dark fantasy esports\" --design-system -p \"E7 Challenge\")",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"gaming tournament anime dark fantasy esports\" --design-system -p \"E7 Challenge\")",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"tournament bracket countdown timer\" --stack html-tailwind)",
+      "WebSearch"
+    ]
+  }
+}
