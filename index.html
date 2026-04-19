@@ -37,7 +37,8 @@
     </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Chakra Petch', sans-serif; background-color: #0F0F23; color: #E2E8F0; overflow-x: hidden; }
+        html { overflow-x: hidden; }
+        body { font-family: 'Chakra Petch', sans-serif; background-color: #0F0F23; color: #E2E8F0; overflow-x: hidden; width: 100%; }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
@@ -227,7 +228,7 @@
 <body class="antialiased">
 
     <!-- Navigation -->
-    <nav class="fixed top-2 left-2 right-2 sm:top-4 sm:left-4 sm:right-4 z-50 bg-darker/80 backdrop-blur-xl border border-primary/20 rounded-2xl px-4 sm:px-6 py-3">
+    <nav class="fixed top-0 left-0 right-0 md:top-4 md:left-4 md:right-4 z-50 bg-darker/90 backdrop-blur-xl border-b border-primary/20 md:border md:rounded-2xl px-4 md:px-6 py-3">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="#hero" class="font-heading text-xl text-primary neon-text cursor-pointer">E7C</a>
             <div class="hidden md:flex items-center gap-8">
@@ -242,7 +243,7 @@
             </button>
         </div>
         <!-- Mobile menu -->
-        <div id="mobileMenu" class="hidden md:hidden mt-4 pb-2 border-t border-primary/20 pt-4 flex flex-col gap-3">
+        <div id="mobileMenu" class="md:hidden border-t border-primary/20 flex flex-col gap-3 overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0 mt-0 pt-0 pb-0">
             <a href="#countdown" class="text-sm font-medium text-textMuted hover:text-textMain transition-colors cursor-pointer">Cuenta Regresiva</a>
             <a href="#rules" class="text-sm font-medium text-textMuted hover:text-textMain transition-colors cursor-pointer">Reglas</a>
             <a href="#participants" class="text-sm font-medium text-textMuted hover:text-textMain transition-colors cursor-pointer">Participantes</a>
@@ -318,7 +319,7 @@
     <div class="section-divider"></div>
 
     <!-- Countdown Section -->
-    <section id="countdown" class="py-20 sm:py-28 px-4 relative">
+    <section id="countdown" class="py-20 sm:py-28 px-4 relative overflow-hidden">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <h2 class="font-heading text-2xl sm:text-4xl md:text-5xl text-textMain mb-4 neon-text">CUENTA REGRESIVA</h2>
@@ -373,7 +374,7 @@
     <div class="section-divider"></div>
 
     <!-- Rules Section -->
-    <section id="rules" class="py-20 sm:py-28 px-4 relative">
+    <section id="rules" class="py-20 sm:py-28 px-4 relative overflow-hidden">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="font-heading text-2xl sm:text-4xl md:text-5xl text-textMain mb-4 neon-text">REGLAS DEL TORNEO</h2>
@@ -452,7 +453,7 @@
     <div class="section-divider"></div>
 
     <!-- Participants Section -->
-    <section id="participants" class="py-20 sm:py-28 px-4 relative">
+    <section id="participants" class="py-20 sm:py-28 px-4 relative overflow-hidden">
         <div class="absolute bottom-0 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl"></div>
         <div class="max-w-5xl mx-auto relative z-10">
             <div class="text-center mb-16">
@@ -541,7 +542,7 @@
     <div class="section-divider"></div>
 
     <!-- Info Section: Por que unirte -->
-    <section id="join" class="py-20 sm:py-28 px-4 relative">
+    <section id="join" class="py-20 sm:py-28 px-4 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-80 h-80 bg-green-500/5 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl"></div>
         <div class="max-w-5xl mx-auto relative z-10">
@@ -898,7 +899,7 @@
     <div class="section-divider"></div>
 
     <!-- Prize Section -->
-    <section id="prize" class="py-20 sm:py-28 px-4 relative">
+    <section id="prize" class="py-20 sm:py-28 px-4 relative overflow-hidden">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-3xl"></div>
         <div class="max-w-4xl mx-auto relative z-10">
             <div class="text-center mb-16">
@@ -970,15 +971,34 @@
 
     <!-- JavaScript -->
     <script>
-        // Mobile menu toggle
+        // Mobile menu toggle with smooth animation
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
+        let menuOpen = false;
+
+        function openMenu() {
+            menuOpen = true;
+            mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+            mobileMenu.style.opacity = '1';
+            mobileMenu.style.marginTop = '1rem';
+            mobileMenu.style.paddingTop = '1rem';
+            mobileMenu.style.paddingBottom = '0.5rem';
+        }
+        function closeMenu() {
+            menuOpen = false;
+            mobileMenu.style.maxHeight = '0';
+            mobileMenu.style.opacity = '0';
+            mobileMenu.style.marginTop = '0';
+            mobileMenu.style.paddingTop = '0';
+            mobileMenu.style.paddingBottom = '0';
+        }
+
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            menuOpen ? closeMenu() : openMenu();
         });
         // Close mobile menu on link click
         mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            link.addEventListener('click', () => closeMenu());
         });
 
         // Countdown Timer
